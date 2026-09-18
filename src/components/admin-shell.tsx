@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { LogoutButton } from "@/components/logout-button";
 
 const navigation = [
   { href: "/dashboard", label: "Ringkasan", icon: "⌂" },
@@ -19,7 +23,34 @@ export function AdminShell({
   active: string;
   children: React.ReactNode;
 }) {
+  const [identity, setIdentity] = useState<{ user: { email?: string }; profile: { nama: string; role: "ADMIN" | "VERIFIKATOR" } } | null>(null);
+  const [loading, setLoading] = useState(true);
   const linkClass = (href: string) => (href === active ? "active" : "");
+
+  useEffect(() => {
+    let mounted = true;
+    fetch("/api/auth/me").then(async (response) => {
+      if (!response.ok) {
+        window.location.replace(response.status === 403 ? "/login?error=unauthorized" : "/login");
+        return;
+      }
+      const data = await response.json();
+      if (mounted) {
+        setIdentity(data);
+        setLoading(false);
+      }
+    }).catch(() => {
+      if (mounted) window.location.replace("/login");
+    });
+    return () => { mounted = false; };
+  }, []);
+
+  if (loading || !identity) {
+    return <main className="auth-loading"><div className="login-card"><p className="eyebrow">PORTAL INTERNAL</p><h1>Memuat halaman...</h1><p className="form-help">Memverifikasi sesi dan akses akun Anda.</p></div></main>;
+  }
+
+  const initials = identity.profile.nama.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+  const roleLabel = identity.profile.role === "ADMIN" ? "Administrator" : "Verifikator";
 
   return (
     <main className="dashboard-shell">
@@ -47,11 +78,11 @@ export function AdminShell({
         </nav>
         <div className="side-bottom">
           <div className="profile-mini">
-            <span>AF</span>
-            <div><strong>Admin Fakultas</strong><small>Administrator</small></div>
+            <span>{initials}</span>
+            <div><strong>{identity.profile.nama}</strong><small>{roleLabel}</small></div>
             <b>⋮</b>
           </div>
-          <Link href="/" className="logout">↪ Keluar</Link>
+          <LogoutButton />
         </div>
       </aside>
       <section className="dashboard-content">{children}</section>
