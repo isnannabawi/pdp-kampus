@@ -38,14 +38,14 @@ export default function Home() {
 
       <section className="hero-section">
         <div className="hero-copy">
-          <p className="eyebrow"><span className="eyebrow-dot" /> PLATFORM PRESTASI KAMPUS</p>
-          <h1>Setiap pencapaian,<br /><em>layak diapresiasi.</em></h1>
-          <p className="hero-description">Catat, verifikasi, dan rayakan prestasi civitas akademika dalam satu platform yang transparan dan terpercaya.</p>
+          <p className="eyebrow"><span className="eyebrow-dot" /> SISTEM PRESTASI</p>
+          <h1>Catat prestasi<br /><em>kampus Anda.</em></h1>
+          <p className="hero-description">Ajukan dan pantau prestasi mahasiswa serta dosen dalam satu tempat.</p>
           <div className="hero-buttons">
             <Link href="/ajukan" className="button button-primary">Ajukan Prestasi <ArrowUpRight /></Link>
             <Link href="/status" className="button button-outline">Cek Status Pengajuan</Link>
           </div>
-          <div className="hero-note"><span>✓</span> Tanpa perlu membuat akun</div>
+          <div className="hero-note"><span>✓</span> Tidak perlu membuat akun</div>
         </div>
         <div className="hero-art" aria-label="Ilustrasi pencapaian prestasi">
           <div className="art-orbit orbit-one" />
@@ -72,10 +72,10 @@ export default function Home() {
 
       <section className="intro-section" id="tentang">
         <div>
-          <p className="eyebrow">SATU LANGKAH LEBIH MAJU</p>
-          <h2>Prestasi Anda,<br /><em>cerita kampus kita.</em></h2>
+          <p className="eyebrow">TENTANG SISTEM</p>
+          <h2>Semua prestasi<br /><em>tercatat rapi.</em></h2>
         </div>
-        <p className="intro-text">Sistem Prestasi membantu mahasiswa dan dosen mendokumentasikan setiap pencapaian dengan mudah. Dari pengajuan hingga verifikasi, semua proses dirancang sederhana, cepat, dan dapat dipantau.</p>
+        <p className="intro-text">Ajukan prestasi, unggah bukti, dan lihat statusnya dengan mudah.</p>
       </section>
 
       <section className="feature-grid" id="cara-kerja">
